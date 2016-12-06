@@ -1,61 +1,34 @@
-
-
 class Food
 {
-  int xPos, yPos; 
-  int diam; // constructers
+  float xpos, ypos; 
+  int diam; 
  
  
-  Food( int tempXpos, int tempYpos) //constructers
+  Food( int tempXpos, int tempYpos) 
   {
-    xPos= tempXpos; 
-    yPos= tempYpos;
+    xpos= tempXpos; 
+    ypos= tempYpos;
     diam= 20;
  
   }
  
   void dissappear()
   {
-    if (get(xPos, yPos) == color(0, 0, 255) ) //when food gets eaten
+    if (get(round(xpos), round(ypos)) == color(0, 0, 255) ) 
     {
       delay(500);
-      xPos = (int) random(300); // randomly placing food
-      yPos = (int) random(300);
+      xpos = (int) random(950); 
+      ypos = (int) random(750);
     }
   }   
-  void display() //method to make the food appear on screen
+  void display() 
   {
     noStroke(); 
-    fill(#F8FC75); //color of food
-    ellipse(xPos, yPos, diam, diam); // size and location of food
+    fill(#F8FC75); //food color
+    rect(xpos, ypos, diam, diam); 
   }
-}//class Food
-//{
-//  int xPos, yPos; 
-//  int diam; // constructers
- 
- 
-//  Food( int tempXpos, int tempYpos) //constructers
-//  {
-//    xPos= tempXpos; 
-//    yPos= tempYpos;
-//    diam= 20;
- 
-//  }
- 
-//  void dissappear()
-//  {
-//    if (get(xPos, yPos) == color(0, 0, 255) ) //when food gets eaten
-//    {
-//      delay(500);
-//      xPos = (int) random(950); // randomly placing food
-//      yPos = (int) random(750);
-//    }
-//  }   
-//  void display() //method to make the food appear on screen
-//  {
-//    noStroke(); 
-//    fill(#F8FC75); //color of food
-//    ellipse(xPos, yPos, diam, diam); // size and location of food
-//  }
-//}
+void newFood(){
+  xpos = random(100, width - 100);
+  ypos = random(100, height - 100);
+}
+}

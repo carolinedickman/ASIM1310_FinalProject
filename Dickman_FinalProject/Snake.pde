@@ -1,138 +1,93 @@
-
-class Snake
-{
+class Snake{
+  
  
-  int length, width, Xpos, Ypos;
+  int length;
+  float length2;
+  String dir = "left";
+  ArrayList <Float> xpos, ypos, clr;
+  int size = 8;
+  int links = 1;
+  int pass = 1;
  
-  Snake(int tempXpos, int tempYpos) //constructers
+  Snake() 
   {
-    length= 15;
-    width= 15;
+    length= 1;
+    length2= 17;
  
-    Xpos = tempXpos;
-    Ypos = tempYpos;
+    xpos = new ArrayList();
+    ypos = new ArrayList();
+    
+    xpos.add(random(width));
+    ypos.add(random(height));
   }
  
-  void display() //smethod to display snake heads
+  void display() 
   {
-    fill(#FC7FE8);
-    rect(Xpos, Ypos, length, width);
+    while (pass == size){
+      pass = pass + 1;
+    }
+    for(int i = 0; i < length; i++){
+      if (i ==0){
+        fill(255, 182,193);
+        rect(xpos.get(i), ypos.get(i), length2, length2);
+      } else if (i > 0){
+      fill(255,182,193);
+      rect(xpos.get(i), ypos.get(i), length2, length2);
+      }  
+  }  
   } 
  
  
-  void move() //method to move snake
-  {
-    if ( keyPressed)
-    {
-      if (key == CODED) { // if the key pressed are arrow keys do this
-        if (keyCode == UP)  // press up key to make snake move up
-        {
-          Ypos-=10;
-        }
-        if (keyCode == DOWN)  //press down key to make snake move down
-        {
-          Ypos+=10;
-        }
-        if (keyCode== LEFT)  // press left key to make the snake move left
-        {
- 
-          Xpos-=10;
-        }
-        if (keyCode== RIGHT) // if right key is pressed move snake right
-        { 
-          Xpos+=10;
-        }
+  void move(){
+     for(int i = length - 1; i > 0; i = i -1 ){
+      xpos.set(i, xpos.get(i - 1));
+      ypos.set(i, ypos.get(i - 1)); 
+     } 
+     if(dir == "left"){
+       xpos.set(0, xpos.get(0) - length2);
+     }
+     if(dir == "right"){
+       xpos.set(0, xpos.get(0) + length2);
+     }
+     
+     if(dir == "up"){
+       ypos.set(0, ypos.get(0) - length2);
+    
+     }
+     
+     if(dir == "down"){
+       ypos.set(0, ypos.get(0) + length2);
+     }
+     xpos.set(0, (xpos.get(0) + width) % width);
+     ypos.set(0, (ypos.get(0) + height) % height);
+     
+      if( check() == true){
+        length = 1;
+        float xtemp = xpos.get(0);
+        float ytemp = ypos.get(0);
+        xpos.clear();
+        ypos.clear();
+        xpos.add(xtemp);
+        ypos.add(ytemp);
+        
+        println("Game Over");
       }
     }
-  }
  
  
-  void grow () //grows the snake each time it eats the food
+  void grow ()
   {
-    if (get(Xpos, Ypos) == color(255, 0, 0) ) //when the snake eats the food
-    {
-      length= length+10;
-    }
+    xpos.add( xpos.get(length - 1) + length2);
+    ypos.add( ypos.get(length - 1) + length2);
+    length++;
   }
- 
-  void die () // if snake hits borders he dies
-  {
-    if ( Xpos> 300 || Xpos<1 || Ypos>300 || Ypos<1) // paremters of hitting borders
-    {
-    
-      fill(#0E43C6); //color of text
-      textSize(30); //size of text
-      text("YOU LOST!", 100, 150); // displays game over on the screen
-      display();
-    }
-  }
-  }
-
-//class Snake
-//{
- 
-//  int length, width, Xpos, Ypos;
- 
-//  Snake(int tempXpos, int tempYpos) //constructers
-//  {
-//    length= 15;
-//    width= 15;
- 
-//    Xpos = tempXpos;
-//    Ypos = tempYpos;
-//  }
- 
-//  void display() //smethod to display snake heads
-//  {
-//    fill(#FC7FE8);
-//    rect(Xpos, Ypos, length, width);
-//  } 
- 
- 
-//  void move() //method to move snake
-//  {
-//    if ( keyPressed)
-//    {
-//      if (key == CODED) { // if the key pressed are arrow keys do this
-//        if (keyCode == UP)  // press up key to make snake move up
-//        {
-//          Ypos-=10;
-//        }
-//        if (keyCode == DOWN)  //press down key to make snake move down
-//        {
-//          Ypos+=10;
-//        }
-//        if (keyCode== LEFT)  // press left key to make the snake move left
-//        {
- 
-//          Xpos-=10;
-//        }
-//        if (keyCode== RIGHT) // if right key is pressed move snake right
-//        { 
-//          Xpos+=10;
-//        }
-//      }
-//    }
-//  }
- 
- 
-//  void grow () //grows the snake each time it eats the food
-//  {
-//    if (get(Xpos, Ypos) == color(255, 0, 0) ) //when the snake eats the food
-//    {
-//      length= length+10;
-//    }
-//  }
- 
-//  void die () // if snake hits borders he dies
-//  {
-//    if ( Xpos> 500 || Xpos<1 || Ypos>500 || Ypos<1) // paremters of hitting borders
-//    {
-    
-//      fill(#0E43C6); //color of text
-//      textSize(50); //size of text
-//      text("YOU LOST!", 120, 250); // displays game over on the screen
-//      display();
-//    }
-//  }
-//}
+  
+  boolean check(){
+    for(int i = 1; i < length; i++){
+      if(dist(xpos.get(0), ypos.get(0), xpos.get(i), ypos.get(i)) < length2){
+        return true;
+      } 
+    } 
+    return false;
+  } 
+}
