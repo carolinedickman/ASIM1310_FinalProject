@@ -1,7 +1,7 @@
 int r= (int)random(400);
 
-Snake snake1=new Snake(); // starts snake in the middle of the screen
-Food food1=new Food(r,r); // starts the food in a random location
+Snake snake1=new Snake(); //middle of screen
+Food food1=new Food(r,r); // starts random location
  
 void setup()
 {
@@ -27,17 +27,19 @@ void draw()
  
  void keyPressed(){
   if(key == CODED){
-    if(keyCode == LEFT){
-      snake1.dir = "left";
-    }
-    if(keyCode == RIGHT){
-      snake1.dir = "right";
-    }
+     }
     if(keyCode == UP){
       snake1.dir = "up";
     }
     if(keyCode == DOWN){
       snake1.dir = "down";
     }
+    if(keyCode == LEFT){
+      snake1.dir = "left";
+    }
+    if(keyCode == RIGHT){
+      snake1.dir = "right";
+   
+    }
   }
- }
+ 

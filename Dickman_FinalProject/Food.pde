@@ -24,7 +24,7 @@ class Food
   void display() 
   {
     noStroke(); 
-    fill(#F8FC75); //food color
+    fill(#F7FA72); //food color
     rect(xpos, ypos, diam, diam); 
   }
 void newFood(){

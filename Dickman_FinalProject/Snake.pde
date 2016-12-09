@@ -3,11 +3,12 @@ class Snake{
  
   int length;
   float length2;
+    int links = 1;
+  int pass = 1;
   String dir = "left";
   ArrayList <Float> xpos, ypos, clr;
   int size = 8;
-  int links = 1;
-  int pass = 1;
+
  
   Snake() 
   {
@@ -28,10 +29,10 @@ class Snake{
     }
     for(int i = 0; i < length; i++){
       if (i ==0){
-        fill(255, 182,193);
+        fill(#F554E0);
         rect(xpos.get(i), ypos.get(i), length2, length2);
       } else if (i > 0){
-      fill(255,182,193);
+      fill(#F554E0);
       rect(xpos.get(i), ypos.get(i), length2, length2);
       }  
   }  
